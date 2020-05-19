@@ -25,7 +25,7 @@ pipeline {
        }
      //double Scan using git leaks
      steps {
-       sh 'docker run --rm /zricethezavgitleaks -r=https://github.com/devsecopss/webapp-pipeline  --pretty --verbose > res.json' //by default ouput json
+       sh 'docker run --rm zricethezav/gitleaks -r=https://github.com/devsecopss/webapp-pipeline  --pretty --verbose > res.json' //by default ouput json
        sh 'cat res.json'
      }  
     }
