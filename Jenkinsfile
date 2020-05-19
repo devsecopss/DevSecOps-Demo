@@ -5,7 +5,7 @@ pipeline {
   tools {
     maven 'maven'
   }
-
+  
   stages {
     stage ('Initialize') {
       steps {
@@ -14,8 +14,15 @@ pipeline {
                     echo "M2_HOME = ${M2_HOME}"
             ''' 
         echo "Starting Your Pipeline Build"
-      }
+       }
+      stage ('Cloning Repository') {
+        steps {
+          git credentialsId: '610370c6-a31f-49a1-9293-772af8d73f41', url: 'https://github.com/devsecopss/DevSecOpsDemo'
+          sh 'ls -l'  
+         }
+        }
     }
+    
    // Check for any unintentionally left credentials 
    stage ('GitCheckSecrets') {
       steps {
@@ -67,17 +74,20 @@ pipeline {
               }
           }
       }
+
     // Artifact Repository uploader to Nexus Server
     stage("Artifact Upload"){
-      echo "Add steps"  
+      echo "Just like we did in the DevOps demo, but using commands in this jenkinsfile"  
     }
     
     
     
     
-
+    // checki
       stage ('Checking Services Health'){
         steps {
+        	echo "Using NMAP to check Service vulnerability"
+        	sh 'nmap'
             sh 'echo Add my Script Over Here!!'
           }
       }
@@ -99,6 +109,7 @@ pipeline {
     
     
     stage("Upload reports To Defect Dojo"){
+    	echo "Trying to Upload All the report into our Vulnerability management tool Defect Dojo"
     }
     
   }
